@@ -192,6 +192,10 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
 
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
   let user = await User.findById(req.user.id).select("+password");
+  if (user.role === "visitor") {
+    return next(new ErrorHandler("Visitor's not allowed this action.", 401));
+  }
+
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid Old Password.", 401));

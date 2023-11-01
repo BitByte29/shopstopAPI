@@ -22,11 +22,11 @@ router.route("/myorders").get(isAuthenticatedUser, myOrders);
 
 router
   .route("/admin/orders")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllOrders);
+  .get(isAuthenticatedUser, authorizeRoles("admin", "visitor"), getAllOrders);
 
 router
   .route("/admin/order/:id")
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateOrder)
-  .delete(isAuthenticatedUser, deleteOrder);
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
 
 module.exports = router;

@@ -31,7 +31,7 @@ Router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 
 Router.route("/admin/users").get(
   isAuthenticatedUser,
-  authorizeRoles("admin"),
+  authorizeRoles("admin", "visitor"),
   getAllUsers
 );
 Router.route("/admin/user/:id")
@@ -41,7 +41,7 @@ Router.route("/admin/user/:id")
 
 Router.route("/admin/stats").get(
   isAuthenticatedUser,
-  authorizeRoles("admin"),
+  authorizeRoles("admin", "visitor"),
   getStats
 );
 
